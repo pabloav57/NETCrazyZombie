@@ -1,15 +1,15 @@
 using UnityEngine;
+using Unity.Netcode;
 
-public class BulletHit : MonoBehaviour
+public class BulletHit : NetworkBehaviour
 {
     [SerializeField] GameObject particle;
 
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        // Instanciamos el efecto de impacto
-        Instantiate(particle, transform.position, Quaternion.identity);
-        
-        // Destruimos el proyectil
-        gameObject.SetActive(false);
+        if (IsClient)
+        {
+            Instantiate(particle, transform.position, Quaternion.identity);
+        }
     }
 }

@@ -4,15 +4,13 @@ using Unity.Netcode;
 public class PlayerMovement : NetworkBehaviour
 {
     [Header("References")]
-
-    [Header("Settings")]
     [SerializeField] float speed;
     [SerializeField] float jumpForce;
 
     Rigidbody rb;
     CapsuleCollider col;
 
-    public override void  OnNetworkSpawn()
+    public override void OnNetworkSpawn()
     {
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -22,23 +20,22 @@ public class PlayerMovement : NetworkBehaviour
 
     void Update()
     {  
-        if(!IsOwner) return;
+        if (!IsOwner) return;
 
-        // desplazamiento del jugador
-        Vector2 moveInput = Vector2.zero;
-        moveInput.x = Input.GetAxis("Horizontal") * speed;  // desplazamiento lateral (eje X)
-        moveInput.y = Input.GetAxis("Vertical") * speed;    // desplazamiento frontal (eje Z)
-        moveInput *= Time.deltaTime;                        // ajustar la velocidad al frame rate
+        // Movimiento lateral y frontal
+        Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        moveInput *= speed * Time.deltaTime;  // Ajustar a velocidad y tiempo
 
-        TranslateRpc(moveInput);
+        // Sincronización de movimiento
+        MovePlayerRpc(moveInput);
 
-        // salto del jugador
+        // Salto
         if (Input.GetButtonDown("Jump"))
         {
-            JumpRpc();        
-        }     
+            JumpRpc();
+        }
 
-        // liberar el cursor al presionar la tecla ESC
+        // Liberar el cursor
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.lockState = CursorLockMode.None;
@@ -46,7 +43,7 @@ public class PlayerMovement : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    void TranslateRpc(Vector2 moveInput)
+    void MovePlayerRpc(Vector2 moveInput)
     {
         transform.Translate(moveInput.x, 0, moveInput.y);
     }
@@ -54,13 +51,12 @@ public class PlayerMovement : NetworkBehaviour
     [Rpc(SendTo.Server)]
     void JumpRpc()
     {
-        if(IsGrounded())
+        if (IsGrounded())
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
     bool IsGrounded()
     {
-        // raycast para detectar si el jugador está tocando el suelo
         return Physics.Raycast(transform.position, Vector3.down, col.bounds.extents.y + 0.1f);
     }
 }

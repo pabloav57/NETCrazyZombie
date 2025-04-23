@@ -16,8 +16,12 @@ public class PlayerFireBullet : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    void FireRpc(){
-        GameObject bala = Instantiate(proyectile, transform.position, transform.rotation);
-        bala.GetComponent<NetworkObject>().Spawn(true);
+    void FireRpc()
+{
+    Vector3 pos = transform.position + transform.forward * 1.5f;
+    Quaternion rot = transform.rotation;
+
+    GameObject bala = Instantiate(proyectile, pos, rot);
+    bala.GetComponent<NetworkObject>().Spawn(true);
     }
 }
