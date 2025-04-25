@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1724272368731631912}
   - component: {fileID: 8237033000044862502}
   - component: {fileID: 4653150573600102542}
+  - component: {fileID: 6441901705202102557}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -397,6 +398,20 @@ MonoBehaviour:
   UseRigidBodyForMotion: 0
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
+--- !u!114 &6441901705202102557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4968261313621213430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26fafca67b11c4946882eeb7cf81f6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  playerUI: {fileID: 6269732253473814909}
 --- !u!1 &7889315627308119846
 GameObject:
   m_ObjectHideFlags: 0
@@ -855,6 +870,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6269732253473814909 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4893096265462715717, guid: 532005ce9d2be654799bc43225d4d34c, type: 3}
+  m_PrefabInstance: {fileID: 1505703542431657016}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8323256759470376865 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7451047839892138905, guid: 532005ce9d2be654799bc43225d4d34c, type: 3}
